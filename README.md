@@ -686,7 +686,9 @@ Lalu akses pada client nakula dengan cara
 
 ```
 
-![untitled]([https://cdn.discordapp.com/attachments/901344920361656355/1163735061749833778/image.png?ex=6540a7bb&is=652e32bb&hm=3c4baa0f13d53b95d176d51b1724eac8f415f7e0735b1e16ce7a568bdf39e23f&](https://cdn.discordapp.com/attachments/901344920361656355/1163801914845179974/image.png?ex=6540e5fe&is=652e70fe&hm=14716ca0067a219419ba094b74697657b886da595be10df8408048248bbf65fb&))
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163801914845179974/image.png?ex=6540e5fe&is=652e70fe&hm=14716ca0067a219419ba094b74697657b886da595be10df8408048248bbf65fb&)
+
 
 ### No 10
 Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan server_name pada soal nomor 1. Untuk melakukan pengecekan akses alamat web tersebut kemudian pastikan worker yang digunakan untuk menangani permintaan akan berganti ganti secara acak. Untuk webserver di masing-masing worker wajib berjalan di port 8001-8003. Contoh
@@ -729,7 +731,9 @@ Berikut merupakan dokumentasinya
 
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735015146926180/image.png?ex=6540a7b0&is=652e32b0&hm=df4d4953275b1cbd8a735c9dc118289b15b824e072233e213519cb12805fa9db&)
 
-![untitled]([https://cdn.discordapp.com/attachments/901344920361656355/1163735061749833778/image.png?ex=6540a7bb&is=652e32bb&hm=3c4baa0f13d53b95d176d51b1724eac8f415f7e0735b1e16ce7a568bdf39e23f&](https://cdn.discordapp.com/attachments/901344920361656355/1163801914845179974/image.png?ex=6540e5fe&is=652e70fe&hm=14716ca0067a219419ba094b74697657b886da595be10df8408048248bbf65fb&))
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163801914845179974/image.png?ex=6540e5fe&is=652e70fe&hm=14716ca0067a219419ba094b74697657b886da595be10df8408048248bbf65fb&)
+
 
 
 ### No 11
