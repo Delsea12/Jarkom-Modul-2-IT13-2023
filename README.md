@@ -162,28 +162,28 @@ Menambahkan nameserver pada konfigurasi Nakula sebagai client. Jalankan perintah
  ping arjuna.IT13.com atau www.arjuna.IT13.com
  ```
  Berikut merupakan hasil dokumentasinya saat testing berjalan
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163315904470319134/image.png?ex=653f215c&is=652cac5c&hm=61641a7d395c8bdeb965ef7866a7922733c4c33c2e798f211af521b7c500eb88&)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734497397837834/image.png?ex=6540a735&is=652e3235&hm=6d060469a367496488d12089093f366bab509892012d6de80d7f885ef218dc91&)
 
 
 ### No 3
 Dengan cara yang sama seperti soal nomor 2, buatlah website utama dengan akses ke abimanyu.yyy.com dan alias www.abimanyu.yyy.com.
 
 ### Jawaban No 3
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163315904470319134/image.png?ex=653f215c&is=652cac5c&hm=61641a7d395c8bdeb965ef7866a7922733c4c33c2e798f211af521b7c500eb88&)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734564326359171/image.png?ex=6540a745&is=652e3245&hm=176c064f3eb34ab491c283c65c24568b0a4f7655af11d2d09b0d16b8132479d2&)
 
 
 ### No 4
 Kemudian, karena terdapat beberapa web yang harus di-deploy, buatlah subdomain parikesit.abimanyu.yyy.com yang diatur DNS-nya di Yudhistira dan mengarah ke Abimanyu.
 
 ### Jawaban No 4
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734651198779462/image.png?ex=6540a759&is=652e3259&hm=40b56d4c98ebbe85da7c296c07b6bb3c9921ebae773c234dfb40196f26e879ac&)
 
 ### No 5
 Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
 
 
 ### Jawaban No 5
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163317195951059045/image.png?ex=653f2290&is=652cad90&hm=ddcee9629fcae72da7598e27a3400b983f05e648e6379a7b8475e3f6233a9696&)
 
 ### No 6
 Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama.
@@ -195,19 +195,26 @@ Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga We
 Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
 
 ### Jawaban No 7
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734792110616636/image.png?ex=6540a77b&is=652e327b&hm=a58ea27966b2548942219ac7dfbb58c01af981f77021d605d3840fbcb8aca66b&)
 
 ### No 8
 Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
 
 ### Jawaban No 8
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163319606119772170/image.png?ex=653f24cf&is=652cafcf&hm=93e4945d48854d31081bdfa9343c92248ff8dd06be471591b077c164109f21c9&)
 
 ### No 9
 Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
 
 ### Jawaban No 9
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
+
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734883512889405/image.png?ex=6540a791&is=652e3291&hm=26a431b9ca4409c8a6363bef6d393f270576624c9eed04e40558eaf018c89bfd&)
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735015146926180/image.png?ex=6540a7b0&is=652e32b0&hm=df4d4953275b1cbd8a735c9dc118289b15b824e072233e213519cb12805fa9db&)
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735061749833778/image.png?ex=6540a7bb&is=652e32bb&hm=3c4baa0f13d53b95d176d51b1724eac8f415f7e0735b1e16ce7a568bdf39e23f&)
 
 ### No 10
 Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan server_name pada soal nomor 1. Untuk melakukan pengecekan akses alamat web tersebut kemudian pastikan worker yang digunakan untuk menangani permintaan akan berganti ganti secara acak. Untuk webserver di masing-masing worker wajib berjalan di port 8001-8003. Contoh
@@ -216,7 +223,12 @@ Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan 
     - Wisanggeni:8003
 
 ### Jawaban No 10
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163710196183465984/image.png?ex=65409093&is=652e1b93&hm=d733c17ac390b8c3b8f070f3d6c1f52799e8dd42a7e355728932d56d983071d1&)
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734883512889405/image.png?ex=6540a791&is=652e3291&hm=26a431b9ca4409c8a6363bef6d393f270576624c9eed04e40558eaf018c89bfd&)
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735015146926180/image.png?ex=6540a7b0&is=652e32b0&hm=df4d4953275b1cbd8a735c9dc118289b15b824e072233e213519cb12805fa9db&)
+
+![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735061749833778/image.png?ex=6540a7bb&is=652e32bb&hm=3c4baa0f13d53b95d176d51b1724eac8f415f7e0735b1e16ce7a568bdf39e23f&)
+
 
 ### No 11
 
