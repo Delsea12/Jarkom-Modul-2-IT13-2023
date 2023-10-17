@@ -189,7 +189,6 @@ Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
 Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama.
 
 ### Jawaban No 6
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
 
 ### No 7
 Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
@@ -207,8 +206,6 @@ Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdom
 Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
 
 ### Jawaban No 9
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1154393256273125376/image.png)
-
 
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163734883512889405/image.png?ex=6540a791&is=652e3291&hm=26a431b9ca4409c8a6363bef6d393f270576624c9eed04e40558eaf018c89bfd&)
 
