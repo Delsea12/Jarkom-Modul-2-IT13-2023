@@ -810,6 +810,80 @@ Lalu dilakukan pengecekan dengan cara menggunakan perintah ```lynx http://www.ab
 
 ### No 13
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
+
+Pada nomer ini kita membuat website baru menggunakan resource baru yang tersedia pada drive (parikesit.abimanyu). Langkah-langkah nya hampir sama dengan nomer 11 tadi. Lebih lengkap nya ada pada script dibawah ini. Dan Untuk mengecek apakah website tersebut sudah jalan, pada sisi client bisa lakukan perintah “lynx www.parikesit.abimanyu.IT13.com”.
+
+``` bash
+#!/bin/bash
+
+# 13. Konfigurasi subdomain www.parikesit.abimanyu.IT13.com
+apt update
+apt install -y apache2
+apt-get install php
+apt-get install unzip
+
+#---------------------------------------------------------------------
+
+# URL berkas yang akan diunduh dari Google Drive
+file_url="https://drive.google.com/u/0/uc?id=1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS&export=download"
+
+# Nama berkas output yang akan diunduh
+output_file="berkas.zip"
+
+# Lakukan pengunduhan dengan curl
+curl -k -c ./cookie.txt -s -L "$file_url" -o "$output_file"
+
+# Periksa apakah unduhan berhasil (contoh menggunakan panjang file)
+file_size=$(du -b "$output_file" | cut -f1)
+if [ $file_size -le 1024 ]; then
+    echo "Unduhan gagal. Mungkin tautan telah berubah atau batasan unduhan telah dicapai."
+    rm -f "$output_file"
+    exit 1
+fi
+
+# Ekstrak berkas
+unzip "$output_file"
+
+# Hapus berkas zip jika diperlukan
+# rm -f "$output_file"
+
+mv parikesit.abimanyu.yyy.com parikesit.abimanyu.IT13
+
+# Tampilkan pesan ketika selesai
+echo "Unduhan dan ekstraksi selesai."
+
+mv parikesit.abimanyu.IT13 /var/www/parikesit.abimanyu.IT13
+
+#--------------------------------------------------------------------------------
+
+cat <<EOL > /etc/apache2/ports.conf
+Listen 80
+
+<IfModule ssl_module>
+	Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+	Listen 443
+</IfModule>
+EOL
+
+cat <<EOL > /etc/apache2/sites-available/parikesit.abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@parikesit.abimanyu.IT13.com
+    ServerName www.parikesit.abimanyu.IT13.com
+    DocumentRoot /var/www/parikesit.abimanyu.IT13
+ 
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+a2ensite parikesit.abimanyu.IT13.com.conf
+
+service apache2 restart
+```
 ### Jawaban No 13
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440231916249138/image.png?ex=653f9526&is=652d2026&hm=f2c4a3df380997959c0965789b2dea1c2c61a063c3cee87df1f4d3197e4af9cf&)
 
@@ -817,6 +891,37 @@ Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan
 
 ### No 14
 Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
+
+Jadi pada nomer ini kita akan membuat folder /public dapat melakukan directory listing dan membuat folder baru yaitu /secret dan folder itu tidak dapat diakses. Untuk melakukan nya, dapat dilihat di script dibawah ini. Dan Untuk mengecek apakah sudah benar, pada sisi client bisa lakukan perintah “lynx www.parikesit.abimanyu.IT13.com” , lalu coba membuka folder public dan secret.
+
+```
+#!/bin/bash
+
+# 14. Konfigurasi directory listing di /public dan 403 Forbidden di /secret
+
+mkdir -p /var/www/parikesit.abimanyu.IT13/secret
+
+cat <<EOL > /etc/apache2/sites-available/parikesit.abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@parikesit.abimanyu.IT13.com
+    ServerName www.parikesit.abimanyu.IT13.com
+    DocumentRoot /var/www/parikesit.abimanyu.IT13
+
+     <Directory /var/www/parikesit.abimanyu.IT13/public>
+     Options +Indexes
+     </Directory>
+ 
+     <Directory /var/www/parikesit.abimanyu.IT13/secret>
+     Options -Indexes
+     </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+service apache2 restart
+```
 
 ### Jawaban No 14
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163436527980904468/image.png?ex=653f91b3&is=652d1cb3&hm=5070ae381d75a9f2e3593f033502c537c10fd52dffb0664dc1635c59f5562f03&)
@@ -827,6 +932,38 @@ Pada subdomain tersebut folder /public hanya dapat melakukan directory listing s
 ### No 15
 Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden.
 
+Untuk nomer ini kita diminta untuk melakukan kostumisasi pada halaman 403 dan 404, jadi jika kita melakukan percobaan masuk kesuatu website dan dia error not found atau forbidend, maka halaman yang muncuk adalah halaman yang telah kita kustom. Html kustom nya sendiri itu terdapat pada folder /error. Dan Untuk mengecek apakah sudah benar, pada sisi client bisa membuka website asal atau website yg forbiden misal pada /secret. 
+
+```
+#!/bin/bash
+
+# 15. Buat halaman kustomisasi error
+
+cat <<EOL > /etc/apache2/sites-available/parikesit.abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@parikesit.abimanyu.IT13.com
+    ServerName www.parikesit.abimanyu.IT13.com
+    DocumentRoot /var/www/parikesit.abimanyu.IT13
+
+     <Directory /var/www/parikesit.abimanyu.IT13/public>
+     Options +Indexes
+     </Directory>
+ 
+     <Directory /var/www/parikesit.abimanyu.IT13/secret>
+     Options -Indexes
+     </Directory>
+
+     ErrorDocument 403 /error/403.html
+     ErrorDocument 404 /error/404.html
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+service apache2 restart
+```
+
 ### Jawaban No 15
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163436909859713095/image.png?ex=653f920e&is=652d1d0e&hm=651a6496ad0840ee6d76b4085225dc99733cc9e81b8c4cf0942adf2b548b634c&)
 
@@ -836,11 +973,125 @@ Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode 
 Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi 
 www.parikesit.abimanyu.yyy.com/js 
 
+Pada nomor ini hampir mirip dengan nomer 12, tapi sekarang akan menggunakan “alias”. Untuk mengecek apakah sudah benar atau belum dapat jalankan perintah ini “lynx www.parikesit.abimanyu.yyy.com/js”, jika sudah bisa maka nomor ini sudah berhasil. Lebih lengkap nya dapat di cek di script dibawah ini. 
+
+```
+#!/bin/bash
+
+# 16. Konfigurasi virtual host agar file asset
+
+cat <<EOL > /etc/apache2/sites-available/parikesit.abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@parikesit.abimanyu.IT13.com
+    ServerName www.parikesit.abimanyu.IT13.com
+    DocumentRoot /var/www/parikesit.abimanyu.IT13
+
+     <Directory /var/www/parikesit.abimanyu.IT13/public>
+     Options +Indexes
+     </Directory>
+ 
+     <Directory /var/www/parikesit.abimanyu.IT13/secret>
+     Options -Indexes
+     </Directory>
+
+     ErrorDocument 403 /error/403.html
+     ErrorDocument 404 /error/404.html
+
+     Alias "/js" "/var/www/parikesit.abimanyu.IT13/public/js"
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+service apache2 restart
+```
+
 ### Jawaban No 16
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163438377379577856/image.png?ex=653f936c&is=652d1e6c&hm=d34e3dffd76ce2246978237bea1b6cf421be6daec978efbaee9964b21a4ae6f5&)
 
 ### No 17
 Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
+
+Jadi pada soal ini kita akan membuat website baru lagi dengan resource berasal dari drive (rjp.baratayuda.abimanyu) yang telah diberikan. Setelah dibuat website nya seperti nomer-nomer sebelum nya kita diminta untuk setting port nya pada 14000 dan 14400. Dan untuk mengecek kita sudah berhasil atau belum kita dapat melakukan perintah ini “lynx www.rjp.baratayuda.abimanyu.IT13.com:14000 (atau :14400)” jika bisa maka nomor ini sudah berhasil dikerjakan.
+
+```
+#!/bin/bash
+
+# 17. konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400
+
+apt update
+apt install -y apache2
+apt-get install php
+apt-get install unzip
+
+#---------------------------------------------------------------------
+
+# URL berkas yang akan diunduh dari Google Drive
+file_url="https://drive.google.com/u/0/uc?id=1pPSP7yIR05JhSFG67RVzgkb-VcW9vQO6&export=download"
+
+# Nama berkas output yang akan diunduh
+output_file="berkas.zip"
+
+# Lakukan pengunduhan dengan curl
+curl -k -c ./cookie.txt -s -L "$file_url" -o "$output_file"
+
+# Periksa apakah unduhan berhasil (contoh menggunakan panjang file)
+file_size=$(du -b "$output_file" | cut -f1)
+if [ $file_size -le 1024 ]; then
+    echo "Unduhan gagal. Mungkin tautan telah berubah atau batasan unduhan telah dicapai."
+    rm -f "$output_file"
+    exit 1
+fi
+
+# Ekstrak berkas
+unzip "$output_file"
+
+# Hapus berkas zip jika diperlukan
+# rm -f "$output_file"
+
+mv rjp.baratayuda.abimanyu.yyy.com rjp.baratayuda.abimanyu.IT13
+
+# Tampilkan pesan ketika selesai
+echo "Unduhan dan ekstraksi selesai."
+
+mv rjp.baratayuda.abimanyu.IT13 /var/www/rjp.baratayuda.abimanyu.IT13
+
+#--------------------------------------------------------------------------------
+
+cat <<EOL > /etc/apache2/ports.conf
+Listen 80
+
+Listen 14000
+
+Listen 14400
+
+<IfModule ssl_module>
+	Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+	Listen 443
+</IfModule>
+EOL
+
+cat <<EOL > /etc/apache2/sites-available/rjp.baratayuda.abimanyu.IT13.com.conf
+<VirtualHost *:14000 *:14400>
+    ServerAdmin webmaster@rjp.baratayuda.abimanyu.IT13.com
+    ServerName www.rjp.baratayuda.abimanyu.IT13.com
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.IT13
+ 
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+a2ensite rjp.baratayuda.abimanyu.IT13.com.conf
+
+service apache2 restart
+```
+
 ### Jawaban No 17
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163491757099589702/image.png?ex=653fc523&is=652d5023&hm=1e5c76b720c20de3d985938d4c5dc7503cd812cb227c900754fbd96d9cdad3c1&)
 
@@ -850,16 +1101,115 @@ Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya da
 
 ### No 18
 Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy.
+
+Pada nomor ini kita diminta agar website “rjp” mempunyai autentikasi, dengan menambahkan id : Wayang  dan password : baratayudaIT13 . Untuk mengecek apakah nomor ini sudah benar, kita dapat melakukan perintah “lynx www.rjp.baratayuda.abimanyu.IT13.com:14000” jika pada saat sebelum masuk web diminta id dan password maka nomor ini telah berhasil dikerjakan. 
+
+```
+#!/bin/bash
+
+# 18. Password Wayang
+
+cat <<EOL > /etc/apache2/sites-available/rjp.baratayuda.abimanyu.IT13.com.conf
+<VirtualHost *:14000 *:14400>
+    ServerAdmin webmaster@rjp.baratayuda.abimanyu.IT13.com
+    ServerName www.rjp.baratayuda.abimanyu.IT13.com
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.IT13
+ 
+    <Directory /var/www/rjp.baratayuda.abimanyu.IT13>
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/.htpasswd
+        Require user Wayang
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+
+htpasswd -b -c /etc/apache2/.htpasswd Wayang baratayudaIT13
+
+service apache2 restart
+```
+
 ### Jawaban No 18
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163497946164252784/image.png?ex=653fcae7&is=652d55e7&hm=87767d14d692b0cd0ef941a6ce4ecdd0bb5eb9ed9358635caad4743cf5f4bc26&)
 
 ### No 19
 Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihkan ke www.abimanyu.yyy.com (alias)
+
+Jadi pada soal ini kita diminta apabila pada saat kita mengakses IP dari abimanyu akan langsung masuk ke website www.abimanyu.IT13.com. Untuk mengecek nya kita dapat melakukan perintah “lynx 10.70.3.3”, jika langsung direct ke website “www.abimanyu.IT13.com” maka pengerjaan soal ini telah berhasil. 
+
+```
+#!/bin/bash
+
+#19. IP alias
+
+cat <<EOL > /etc/apache2/sites-available/abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@abimanyu.IT13.com
+    ServerName www.abimanyu.IT13.com
+    ServerAlias www.abimanyu.IT13.com 10.70.3.3
+    DocumentRoot /var/www/abimanyu.IT13
+ 
+     <Directory /var/www/abimanyu.IT13>
+     Options +FollowSymLinks -Multiviews
+     AllowOverride All
+     </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+
+service apache2 restart
+```
+
 ### Jawaban No 19
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163499378430980258/image.png?ex=653fcc3c&is=652d573c&hm=c6a23db2b70c013de95cddf93c3beb750932c4261fd6a30dad82ff4c869ee408&)
 
 ### No 20
 Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan banyak gambar gambar random, maka ubahlah request gambar yang memiliki substring “abimanyu” akan diarahkan menuju abimanyu.png.
+
+Pada soal terakhir ini kita diminta agar jika website “www.parikesit.abimanyu.IT13.com” dimasukkan substring “abimanyu” maka akan langsung direct ke “abimanyu.png. Untuk mengecek nya kita dapat melakukan perintah “lynx www.parikesit.abimanyu.IT13.com/abimanyu” jika langsung ada perintah download maka soal ini telah berhasil dikerjakan. 
+
+```
+#!/bin/bash
+
+#20. 
+
+cat <<EOL > /etc/apache2/sites-available/parikesit.abimanyu.IT13.com.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@parikesit.abimanyu.IT13.com
+    ServerName www.parikesit.abimanyu.IT13.com
+    DocumentRoot /var/www/parikesit.abimanyu.IT13
+
+     <Directory /var/www/parikesit.abimanyu.IT13/public>
+     Options +Indexes
+     </Directory>
+ 
+     <Directory /var/www/parikesit.abimanyu.IT13/secret>
+     Options -Indexes
+     </Directory>
+
+     ErrorDocument 403 /error/403.html
+     ErrorDocument 404 /error/404.html
+
+     RewriteEngine On
+     RewriteCond %{REQUEST_URI} ^.*abimanyu.*
+     RewriteRule ^(.*)$ /public/images/abimanyu.png [L]
+
+     Alias "/js" "/var/www/parikesit.abimanyu.IT13/public/js"
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+service apache2 restart
+```
 
 ### Jawaban No 20
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163502359633219654/image.png?ex=653fcf03&is=652d5a03&hm=83b27c265a8f4f8844a61bf363c69920cd88c8f33aafb6556e00e737da628be0&)
