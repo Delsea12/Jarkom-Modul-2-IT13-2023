@@ -740,14 +740,73 @@ Berikut merupakan dokumentasinya
 Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
 
 ### Jawaban No 11
+Membuat konfigurasi pada file /etc/apache2/sites-available/abimanyu.IT13.conf
+
+```
+<VirtualHost *:80>
+    ServerName abimanyu.IT13.com
+    ServerAlias 10.70.3.3
+    ServerAlias www.abimanyu.IT13.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/abimanyu.IT13
+
+    RewriteEngine On
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+lalu melakukan donwload untuk kebutuhna website dari drive dan meletakannya pada /var/www
+
+```
+mkdir /var/www/abimanyu
+
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc' -O abimanyu
+
+unzip abimanyu -d abimanyu.IT13
+
+rm abimanyu
+
+mv abimanyu.IT13/abimanyu.yyy.com/* abimanyu.IT13
+
+rmdir abimanyu.IT13/abimanyu.yyy.com
+```
+Lalu mengecek pada pada client Nakula dengan menggunakan perintah ```lynx http://www.abimanyu.IT13.com``` dan berikut merupakan bentuk dokumentasinya
+
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440059786215485/image.png?ex=653f94fd&is=652d1ffd&hm=5bf82d2ead4d271c29429829d40433d3ac2be02f03bb485277bc27657674538d&)
 
 
 ### No 12
 Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
 
+
+
 ### Jawaban No 12
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440136625856533/image.png?ex=653f9510&is=652d2010&hm=20f2f2e3c22ed2a15e36be65f089b814596b211f6e3d830554f0b3d713f3b5eb&)
+Setelah itu, kita mengubah url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
+
+Lalu dilakukan konfigurasi dengan menambahkan kode pada ```/etc/apache2/sites-available/abimanyu.IT13.conf```
+
+```
+    <Directory /var/www/abimanyu.IT13>
+        Options +Indexes
+    </Directory>
+
+    Alias "/home" "/var/www/abimanyu.IT13/home.html"
+    Alias / /var/www/abimanyu.IT13/home.html
+```
+
+Kemudian menajalankan perintah untuk menajalankan konfigurasi
+
+```
+cd /etc/apache2/sites-available/
+a2enmod rewrite
+a2ensite abimanyu.IT13.conf
+service apache2 reload
+service apache2 start
+service apache2 status
+```
+
+Lalu dilakukan pengecekan dengan cara menggunakan perintah ```lynx http://www.abimanyu.IT13.com/home``` maka dokumentasinya akan seperti ini![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440136625856533/image.png?ex=653f9510&is=652d2010&hm=20f2f2e3c22ed2a15e36be65f089b814596b211f6e3d830554f0b3d713f3b5eb&)
 
 ### No 13
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
