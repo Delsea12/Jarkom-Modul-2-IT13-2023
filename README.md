@@ -887,8 +887,6 @@ service apache2 restart
 ### Jawaban No 13
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440231916249138/image.png?ex=653f9526&is=652d2026&hm=f2c4a3df380997959c0965789b2dea1c2c61a063c3cee87df1f4d3197e4af9cf&)
 
-![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163440812726702140/image.png?ex=653f95b1&is=652d20b1&hm=ebe86c7187afd6db8f76607d0620e711dafb559252d1ed2ba3582220f8654d5f&)
-
 ### No 14
 Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
 
