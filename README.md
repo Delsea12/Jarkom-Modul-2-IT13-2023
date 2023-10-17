@@ -230,6 +230,7 @@ Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan 
 ![untitled](https://cdn.discordapp.com/attachments/901344920361656355/1163735061749833778/image.png?ex=6540a7bb&is=652e32bb&hm=3c4baa0f13d53b95d176d51b1724eac8f415f7e0735b1e16ce7a568bdf39e23f&)
 
 
+
 ### No 11
 
 ### Jawaban No 11
