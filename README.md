@@ -892,7 +892,7 @@ Pada subdomain tersebut folder /public hanya dapat melakukan directory listing s
 
 Jadi pada nomer ini kita akan membuat folder /public dapat melakukan directory listing dan membuat folder baru yaitu /secret dan folder itu tidak dapat diakses. Untuk melakukan nya, dapat dilihat di script dibawah ini. Dan Untuk mengecek apakah sudah benar, pada sisi client bisa lakukan perintah “lynx www.parikesit.abimanyu.IT13.com” , lalu coba membuka folder public dan secret.
 
-```
+``` bash
 #!/bin/bash
 
 # 14. Konfigurasi directory listing di /public dan 403 Forbidden di /secret
@@ -932,7 +932,7 @@ Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode 
 
 Untuk nomer ini kita diminta untuk melakukan kostumisasi pada halaman 403 dan 404, jadi jika kita melakukan percobaan masuk kesuatu website dan dia error not found atau forbidend, maka halaman yang muncuk adalah halaman yang telah kita kustom. Html kustom nya sendiri itu terdapat pada folder /error. Dan Untuk mengecek apakah sudah benar, pada sisi client bisa membuka website asal atau website yg forbiden misal pada /secret. 
 
-```
+``` bash
 #!/bin/bash
 
 # 15. Buat halaman kustomisasi error
@@ -973,7 +973,7 @@ www.parikesit.abimanyu.yyy.com/js
 
 Pada nomor ini hampir mirip dengan nomer 12, tapi sekarang akan menggunakan “alias”. Untuk mengecek apakah sudah benar atau belum dapat jalankan perintah ini “lynx www.parikesit.abimanyu.yyy.com/js”, jika sudah bisa maka nomor ini sudah berhasil. Lebih lengkap nya dapat di cek di script dibawah ini. 
 
-```
+``` bash
 #!/bin/bash
 
 # 16. Konfigurasi virtual host agar file asset
@@ -1013,7 +1013,7 @@ Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya da
 
 Jadi pada soal ini kita akan membuat website baru lagi dengan resource berasal dari drive (rjp.baratayuda.abimanyu) yang telah diberikan. Setelah dibuat website nya seperti nomer-nomer sebelum nya kita diminta untuk setting port nya pada 14000 dan 14400. Dan untuk mengecek kita sudah berhasil atau belum kita dapat melakukan perintah ini “lynx www.rjp.baratayuda.abimanyu.IT13.com:14000 (atau :14400)” jika bisa maka nomor ini sudah berhasil dikerjakan.
 
-```
+``` bash
 #!/bin/bash
 
 # 17. konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400
@@ -1102,7 +1102,7 @@ Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password
 
 Pada nomor ini kita diminta agar website “rjp” mempunyai autentikasi, dengan menambahkan id : Wayang  dan password : baratayudaIT13 . Untuk mengecek apakah nomor ini sudah benar, kita dapat melakukan perintah “lynx www.rjp.baratayuda.abimanyu.IT13.com:14000” jika pada saat sebelum masuk web diminta id dan password maka nomor ini telah berhasil dikerjakan. 
 
-```
+``` bash
 #!/bin/bash
 
 # 18. Password Wayang
@@ -1139,7 +1139,7 @@ Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihk
 
 Jadi pada soal ini kita diminta apabila pada saat kita mengakses IP dari abimanyu akan langsung masuk ke website www.abimanyu.IT13.com. Untuk mengecek nya kita dapat melakukan perintah “lynx 10.70.3.3”, jika langsung direct ke website “www.abimanyu.IT13.com” maka pengerjaan soal ini telah berhasil. 
 
-```
+``` bash
 #!/bin/bash
 
 #19. IP alias
@@ -1173,7 +1173,7 @@ Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan bany
 
 Pada soal terakhir ini kita diminta agar jika website “www.parikesit.abimanyu.IT13.com” dimasukkan substring “abimanyu” maka akan langsung direct ke “abimanyu.png. Untuk mengecek nya kita dapat melakukan perintah “lynx www.parikesit.abimanyu.IT13.com/abimanyu” jika langsung ada perintah download maka soal ini telah berhasil dikerjakan. 
 
-```
+``` bash
 #!/bin/bash
 
 #20. 
